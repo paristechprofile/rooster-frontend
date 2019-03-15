@@ -11,9 +11,7 @@ class CoursesContainer extends Component {
         
         this.state = {
         courses: [],
-        courseId:'',
-        students: [],
-        studentId: ''
+        students: []
     };
     }
     componentDidMount(){
@@ -28,38 +26,36 @@ class CoursesContainer extends Component {
             this.setState({
                 courses: res.data,
                 courseId: '',
-                // students: res.data,
-                // studentName: '',
-                // studentId: ''
-                
+                courseName: '',
+                courseLocation: '',
+                courseDates: '',
+                courseStudents: []
             });
-            console.log(this.state, "after set state");
-            console.log(res.data.courses);
-            console.log(res.data.students)
         });
     }
     fetchStudents(){
         StudentModel.all().then(res => {
             console.log(res, "before set state");
             this.setState({
-                // courses: res.data,
-                // courseId: '',
                 students: res.data,
+                newStudent: '',
+                studentId: '',
                 studentName: '',
-                studentId: ''
+                studentAge: '',
+                studentBio: '',
+                studentCourseId:'' 
+                
                 
             });
-            console.log(this.state, "after set state");
-            console.log(res.data.courses);
-            console.log(res.data.students)
         });
     }
+
     deleteStudent = (student) => {
         StudentModel.delete(student).then((res) =>{
             let students = this.state.students.filter(function(student){
                 console.log(student.students) //array of students
-                console.log(students.students) 
-                return students.students !== res.data._id
+                console.log(students.students)  
+                // return students.students !== res.data._id
                 
             });
             this.setState({ students }) //ES6 magic. If the object key value pair is the same, name you can say just the one word
@@ -71,10 +67,11 @@ class CoursesContainer extends Component {
             body: student 
         }
         StudentModel.create(newStudent).then((res) => {
+            console.log(res)
             let students = this.state.students
             let newStudent = students.push(res.data)
-            console.log(res.data)
-            this.setState({ newStudent })
+            console.log(students)
+            this.setState({ students })
             console.log('creating a new student',newStudent)
         })
     }
@@ -93,7 +90,7 @@ class CoursesContainer extends Component {
         <div className='studentsContainer'>
             <div className='row'>
                 <div className='col-4'>
-                <h1>HI!!</h1>
+                <h2>Offered Courses</h2>
                 <CourseList
                 courses={ this.state.courses }
                 courseName={ this.state.name }
@@ -102,8 +99,11 @@ class CoursesContainer extends Component {
                 </div>
             </div>
             <div className='col-8'>
+            <h2>Add Yourself To The Rooster's Waitlist</h2>
                 <CreateStudent
-                createStudent={ this.createStudent } />
+                createStudent={ this.createStudent }
+                studentName={this.createStudent} />
+            <h2>Rooster</h2>
                 <StudentList 
                 students={ this.state.students }
                 updateStudent={ this.updateStudent }

@@ -5,7 +5,7 @@ class CreateStudent extends Component {
         super()
         //sets the initial state via the constructor! that's the constructor's job :)
         this.state = {
-        student: ''
+        student: '',
         }
     }
     onInputChange = (e) => {
@@ -17,9 +17,8 @@ class CreateStudent extends Component {
     e.preventDefault()
     let student = this.state.student
     this.props.createStudent(student)
-    this.setState({
-        student: ""
-        })
+    this.setState({ student })
+    console.log(student)
     }
     render(){ // first we set up the html
         return (

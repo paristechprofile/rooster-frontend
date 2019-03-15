@@ -4,13 +4,15 @@ import Course from './Course';
 class CourseList extends Component {
     render(){
         
-        let courses = this.props.courses.map( (course) => {
+        let courses = this.props.courses.map((course) => {
+            // console.log(course)
         return (
-            <Course
-            key={course._id}
-            course={ course }
-            deleteCourse={ this.props.deleteCourse }
-            updateCourse={ this.props.updateCourse }/>
+            <div>
+                <Course
+                key={course._id}
+                course={ course }
+                />
+            </div>
         )
         })
         return(

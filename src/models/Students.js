@@ -7,6 +7,7 @@ class StudentModel {
     static all() {
         let request = axios.get(endPoint);
         console.log('student model axios request',request)
+        console.log(request)
         return request;
     }
     static oneStudent(studentId) {
@@ -14,8 +15,8 @@ class StudentModel {
         console.log('get one student model axios request',request)
         return request;
     }
-    static create(studentId) {
-        let request = axios.post(`${endPoint}/${studentId}`,studentId);
+    static create() {
+        let request = axios.post(`${endPoint}/add`);
         console.log('create student model axios request',request)
         return request;
     }

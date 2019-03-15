@@ -10,12 +10,12 @@ class Student extends Component {
         return (
             <li data-students-index={ this.props.student.id }>
                 <div>
-                <span> { this.props.student.body } </span>
+                <span> { this.props.student.name } </span>
                 <a 
                 href='#removestudent'
                 className="remove"
                 onClick={ this.deleteClickedStudent }>
-                click here
+                Delete
                 </a>
                 </div>
                 <UpdateStudent
