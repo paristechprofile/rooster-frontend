@@ -1,11 +1,11 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Home from '../components/Home';
-// import TodosContainer from '../containers/TodosContainer';
+import CoursesContainer from '../containers/CoursesContainer';
 
 export default (
     <Switch>
         <Route exact path='/' component={ Home }/>
-        <Route path='/Courses' component={ CoursesContainer }/>
+        <Route path='/course' component={ CoursesContainer }/>
     </Switch>
 )

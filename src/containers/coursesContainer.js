@@ -1,47 +1,64 @@
 import React, {Component} from 'react'
-import StudentModel from '../models/Student'
-import StudentsList from '../components/StudentsList';
-// import CreateStudentForm from '../components/CreateStudentForm'
+import StudentModel from '../models/Students';
+import CourseModel from '../models/Courses';
+import StudentList from '../components/StudentList.js';
+import CourseList from '../components/CourseList.js';
+import CreateStudent from '../components/CreateStudent';
 
 class CoursesContainer extends Component {
     state = {
-        students: []
+        courses: [],
+        courseId:'',
+        students: [],
+        studentId: ''
     };
 
     componentDidMount(){
         this.fetchData();
     }
+    
     // fetch all to students from super-crud-api
     fetchData(){
-        StudentModel.all().then( (res) => {
+        CourseModel.all().then(res => {
+            console.log(res.data, "before set state");
             this.setState({
-                students: res.data.students,
-                student: ''
-            })
+                courses: res.data,
+                courseId: '',
+                students: res.data,
+                studentId: ''
+                
+            });
+            console.log(this.state.courses, "after set state");
+            console.log(res.data);
         });
     }
     deleteStudent = (student) => {
         StudentModel.delete(student).then((res) =>{
             let students = this.state.students.filter(function(student){
-                return student._id !== res.data._id
+                console.log(student.students)//array of students
+                console.log(students.students) 
+
+                return students.students !== res.data._id
+                
             });
             this.setState({ students }) //ES6 magic. If the object key value pair is the same, name you can say just the one word
+            console.log('deleting a new student',student)
         })
     }
     createStudent = (student) => {
         let newStudent = {
-            body: student,
-            completed: false
+            body: student 
         }
         StudentModel.create(newStudent).then((res) => {
             let students = this.state.students
-            let newStudent = student.push(res.data)
+            let newStudent = students.push(res.data)
             this.setState({ newStudent })
+            console.log('creating a new student',newStudent)
         })
     }
     updateStudent = (student, studentBody, studentId) => {
         function isUpdatedStudent(Student) {
-            return Student._id === StudentId;
+            return Student._id === studentId;
         }
         StudentModel.update(studentId, studentBody).then((res) => {
             let students = this.state.students
@@ -52,12 +69,17 @@ class CoursesContainer extends Component {
     render(){
         return (
         <div className='studentsContainer'>
+            <h1>HI!!</h1>
             <StudentList 
-                student={ this.state.student }
-                updateStudent={ this.updateStudent }
-                deleteStudent={ this. deleteStudent } />
-            <CreateStudentForm
+            students={ this.state.students }
+            updateStudent={ this.updateStudent }
+            deleteStudent={ this. deleteStudent } />
+            <CourseList
+            courseName={this.state.name}
+            />
+            <CreateStudent
                 createStudent={ this.createStudent } />
+
             
         </div>
         )

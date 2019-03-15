@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-// import UpdateStudentForm from './UpdateStudentForm'
+import UpdateStudent from './UpdateStudent'
 
 class Student extends Component {
     deleteClickedStudent = () =>{
@@ -18,7 +18,7 @@ class Student extends Component {
                 Remove
                 </a>
                 </div>
-                <UpdateStudentForm
+                <UpdateStudent
                 student={this.props.student}
                 buttonName='Update Student!'
                 updateStudent={ this.props.updateStudent}/>

@@ -6,22 +6,27 @@ const endPoint = `http://localhost:3005/student`;
 class StudentModel {
     static all() {
         let request = axios.get(endPoint);
+        console.log('student model axios request',request)
         return request;
     }
-    static oneStudent(studentId) {
-        let request = axios.get(`${endPoint}/${studentId}`);
+    static oneStudent(student) {
+        let request = axios.get(`${endPoint}/${student._id}`);
+        console.log('get one student model axios request',request)
         return request;
     }
     static create(student) {
-        let request = axios.post(`${endPoint}/${studentId}`,student);
+        let request = axios.post(`${endPoint}/${student._id}`,student);
+        console.log('create student model axios request',request)
         return request;
     }
-    static update(studentId, updateInfo) {
-        let request = axios.put(`${endPoint}/${studentId}`, updateInfo);
+    static update(student, updateInfo) {
+        let request = axios.put(`${endPoint}/${student._id}`, updateInfo);
+        console.log('update student model axios request',request)
         return request;
     }
-    static delete(studentId) {
-        let request = axios.delete(`${endPoint}/${studentId}`);
+    static delete(student) {
+        let request = axios.delete(`${endPoint}/${student._id}`);
+        console.log('delete student model axios request',request)
         return request;
     }
 }

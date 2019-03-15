@@ -3,7 +3,7 @@ import Student from './Student';
 
 class StudentList extends Component {
     render(){
-
+        
         let students = this.props.students.map( (student) => {
         return (
             <Student
