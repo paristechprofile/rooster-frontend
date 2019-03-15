@@ -9,23 +9,23 @@ class StudentModel {
         console.log('student model axios request',request)
         return request;
     }
-    static oneStudent(student) {
-        let request = axios.get(`${endPoint}/${student._id}`);
+    static oneStudent(studentId) {
+        let request = axios.get(`${endPoint}/${studentId}`);
         console.log('get one student model axios request',request)
         return request;
     }
-    static create(student) {
-        let request = axios.post(`${endPoint}/${student._id}`,student);
+    static create(studentId) {
+        let request = axios.post(`${endPoint}/${studentId}`,studentId);
         console.log('create student model axios request',request)
         return request;
     }
-    static update(student, updateInfo) {
-        let request = axios.put(`${endPoint}/${student._id}`, updateInfo);
+    static update(studentId, updateInfo) {
+        let request = axios.put(`${endPoint}/${studentId}`, updateInfo);
         console.log('update student model axios request',request)
         return request;
     }
-    static delete(student) {
-        let request = axios.delete(`${endPoint}/${student._id}`);
+    static delete(studentId) {
+        let request = axios.delete(`${endPoint}/${studentId}`);
         console.log('delete student model axios request',request)
         return request;
     }

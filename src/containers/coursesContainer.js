@@ -6,38 +6,59 @@ import CourseList from '../components/CourseList.js';
 import CreateStudent from '../components/CreateStudent';
 
 class CoursesContainer extends Component {
-    state = {
+    constructor() {
+        super();
+        
+        this.state = {
         courses: [],
         courseId:'',
         students: [],
         studentId: ''
     };
-
+    }
     componentDidMount(){
-        this.fetchData();
+        this.fetchCourses();
+        this.fetchStudents();
     }
     
     // fetch all to students from super-crud-api
-    fetchData(){
+    fetchCourses(){
         CourseModel.all().then(res => {
-            console.log(res.data, "before set state");
+            console.log(res, "before set state");
             this.setState({
                 courses: res.data,
                 courseId: '',
+                // students: res.data,
+                // studentName: '',
+                // studentId: ''
+                
+            });
+            console.log(this.state, "after set state");
+            console.log(res.data.courses);
+            console.log(res.data.students)
+        });
+    }
+    fetchStudents(){
+        StudentModel.all().then(res => {
+            console.log(res, "before set state");
+            this.setState({
+                // courses: res.data,
+                // courseId: '',
                 students: res.data,
+                studentName: '',
                 studentId: ''
                 
             });
-            console.log(this.state.courses, "after set state");
-            console.log(res.data);
+            console.log(this.state, "after set state");
+            console.log(res.data.courses);
+            console.log(res.data.students)
         });
     }
     deleteStudent = (student) => {
         StudentModel.delete(student).then((res) =>{
             let students = this.state.students.filter(function(student){
-                console.log(student.students)//array of students
+                console.log(student.students) //array of students
                 console.log(students.students) 
-
                 return students.students !== res.data._id
                 
             });
@@ -52,6 +73,7 @@ class CoursesContainer extends Component {
         StudentModel.create(newStudent).then((res) => {
             let students = this.state.students
             let newStudent = students.push(res.data)
+            console.log(res.data)
             this.setState({ newStudent })
             console.log('creating a new student',newStudent)
         })
@@ -69,18 +91,25 @@ class CoursesContainer extends Component {
     render(){
         return (
         <div className='studentsContainer'>
-            <h1>HI!!</h1>
-            <StudentList 
-            students={ this.state.students }
-            updateStudent={ this.updateStudent }
-            deleteStudent={ this. deleteStudent } />
-            <CourseList
-            courseName={this.state.name}
-            />
-            <CreateStudent
+            <div className='row'>
+                <div className='col-4'>
+                <h1>HI!!</h1>
+                <CourseList
+                courses={ this.state.courses }
+                courseName={ this.state.name }
+                
+                />
+                </div>
+            </div>
+            <div className='col-8'>
+                <CreateStudent
                 createStudent={ this.createStudent } />
+                <StudentList 
+                students={ this.state.students }
+                updateStudent={ this.updateStudent }
+                deleteStudent={ this.deleteStudent }/>
 
-            
+            </div>
         </div>
         )
     }

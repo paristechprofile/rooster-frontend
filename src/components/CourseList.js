@@ -1,18 +1,25 @@
 import React, {Component} from 'react';
+import Course from './Course';
 
-const CourseList = props => {
-    // const getCourses = props.courses;
-
-    // const courseData = getCourses.map(data=>{
-        return(
-            <div>
-                HI THESE ARE THE COURSES
-                -
-                -
-                -
-            </div>
+class CourseList extends Component {
+    render(){
+        
+        let courses = this.props.courses.map( (course) => {
+        return (
+            <Course
+            key={course._id}
+            course={ course }
+            deleteCourse={ this.props.deleteCourse }
+            updateCourse={ this.props.updateCourse }/>
         )
-    // })
+        })
+        return(
+        <ul>
+            {courses}
+        </ul>
+        )
+        
+    }
 }
 
 export default CourseList

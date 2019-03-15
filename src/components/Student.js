@@ -15,7 +15,7 @@ class Student extends Component {
                 href='#removestudent'
                 className="remove"
                 onClick={ this.deleteClickedStudent }>
-                Remove
+                click here
                 </a>
                 </div>
                 <UpdateStudent
