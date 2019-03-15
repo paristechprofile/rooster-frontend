@@ -11,7 +11,7 @@ class StudentList extends Component {
             <Student
             key={student._id}
             student={ student }
-            // name={this.props.students}
+            name={this.props.students}
             deleteStudent={ this.props.deleteStudent }
             updateStudent={ this.props.updateStudent }/>
         </div>

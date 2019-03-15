@@ -8,17 +8,16 @@ import CreateStudent from '../components/CreateStudent';
 class CoursesContainer extends Component {
     constructor() {
         super();
-        
         this.state = {
         courses: [],
-        students: []
-    };
+        students: [],
+        student: ''
+        };
     }
     componentDidMount(){
         this.fetchCourses();
         this.fetchStudents();
     }
-    
     // fetch all to students from super-crud-api
     fetchCourses(){
         CourseModel.all().then(res => {
@@ -38,6 +37,7 @@ class CoursesContainer extends Component {
             console.log(res, "before set state");
             this.setState({
                 students: res.data,
+                student: '', 
                 newStudent: '',
                 studentId: '',
                 studentName: '',
@@ -49,18 +49,33 @@ class CoursesContainer extends Component {
             });
         });
     }
-
+    
     deleteStudent = (student) => {
         StudentModel.delete(student).then((res) =>{
             let students = this.state.students.filter(function(student){
-                console.log(student.students) //array of students
+                // console.log() 
+                // console.log(student.students) //array of students; how do i grab correct id?
                 console.log(students.students)  
-                // return students.students !== res.data._id
+                return students.students !== res.data._id
                 
             });
             this.setState({ students }) //ES6 magic. If the object key value pair is the same, name you can say just the one word
             console.log('deleting a new student',student)
         })
+    }
+    onInputChange = (e) => {
+        console.log(e.target.value)
+        this.setState({
+        student: e.target.value
+        })
+    }
+    onFormSubmit = (e) => {
+    e.preventDefault()
+    console.log(this.state.student)
+    let student = this.state.student
+    this.createStudent(student)
+    // this.setState({ student })
+    console.log(student)
     }
     createStudent = (student) => {
         let newStudent = {
@@ -69,10 +84,10 @@ class CoursesContainer extends Component {
         StudentModel.create(newStudent).then((res) => {
             console.log(res)
             let students = this.state.students
-            let newStudent = students.push(res.data)
+            let newStudents = students.push(res.data)
             console.log(students)
-            this.setState({ students })
-            console.log('creating a new student',newStudent)
+            this.setState({ students: newStudents })
+            console.log('creating a new student',newStudents)
         })
     }
     updateStudent = (student, studentBody, studentId) => {
@@ -102,7 +117,10 @@ class CoursesContainer extends Component {
             <h2>Add Yourself To The Rooster's Waitlist</h2>
                 <CreateStudent
                 createStudent={ this.createStudent }
-                studentName={this.createStudent} />
+                student={this.props.student}
+                studentName={this.createStudent} 
+                onInputChange={this.props.onInputChange}
+                onFormSubmit={this.props.onFormSubmit}/>
             <h2>Rooster</h2>
                 <StudentList 
                 students={ this.state.students }

@@ -12,7 +12,7 @@ class Student extends Component {
                 <div>
                 <span> { this.props.student.name } </span>
                 <a 
-                href='#removestudent'
+                href='#'
                 className="remove"
                 onClick={ this.deleteClickedStudent }>
                 Delete
